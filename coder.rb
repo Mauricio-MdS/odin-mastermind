@@ -7,27 +7,17 @@ class Coder
     @code = provide_code
   end
 
-  def check_guess(guess)
-    hits = calculate_hits!(guess)
-    if hits == 4
-      puts 'BREAKER won the game!'
-      return true
-    end
-
-    false
+  def check_guess!(guess)
+    unbroken_code = @code.clone
+    hits = []
+    hits.push(calculate_precise_hits!(guess, unbroken_code))
+    hits.push(calculate_out_of_order!(guess, unbroken_code))
+    puts "\n#{hits.first} numbers on the right position."
+    puts "#{hits.last} numbers out of order. \n\n"
+    hits
   end
 
   private
-
-  def calculate_hits!(guess)
-    unbroken_code = @code.clone
-    precise_hits = calculate_precise_hits!(guess, unbroken_code)
-    out_of_order = calculate_out_of_order!(guess, unbroken_code)
-    puts "#{precise_hits} numbers on the right position." if precise_hits.positive?
-    puts "#{out_of_order} numbers out of order." if out_of_order.positive?
-    puts '0 hits.' if precise_hits.zero? && out_of_order.zero?
-    precise_hits
-  end
 
   def calculate_out_of_order!(guess, code)
     hits = 0
@@ -45,12 +35,13 @@ class Coder
   # Removes the number from the guess array and the unbroken code if precise hit
   def calculate_precise_hits!(guess, code)
     hits = 0
-    guess.each_with_index do |number, index|
-      next unless number == code[index]
+
+    0.upto(3) do |i|
+      next unless guess[i] == code[i]
 
       hits += 1
-      guess[index] = nil
-      code[index] = nil
+      code[i] = nil
+      guess[i] = nil
     end
     guess.compact!
     code.compact!

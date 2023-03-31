@@ -41,7 +41,8 @@ You will play agains the computer.\n\n"
 
   def play_round
     guess = @breaker.provide_guess
-    @end_game = @coder.check_guess(guess) || out_of_tries?
+    hits = @coder.check_guess!(guess)
+    @end_game = victory?(hits) || out_of_tries?
   end
 
   def setup_game
@@ -53,5 +54,12 @@ You will play agains the computer.\n\n"
     @coder = option == 1 ? Coder.new(ai) : Coder.new(player_interface)
     @end_game = false
     @tries = 0
+  end
+
+  def victory?(hits)
+    return false unless hits == [4, 0]
+
+    puts "It's a match! BREAKER wins!"
+    true
   end
 end
