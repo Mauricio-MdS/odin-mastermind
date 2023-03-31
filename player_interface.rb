@@ -2,6 +2,9 @@
 
 # Player interface when role played by human
 class PlayerInterface
+  # Player must analyze hits on his own
+  def analyze_hits(guess, hits) end
+
   def provide_code
     ask_for_code_input 'Choose a code in the format NNNN where N is 1 to 6'
   end

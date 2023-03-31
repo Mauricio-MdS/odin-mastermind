@@ -41,7 +41,8 @@ You will play agains the computer.\n\n"
 
   def play_round
     guess = @breaker.provide_guess
-    hits = @coder.check_guess!(guess)
+    hits = @coder.check_guess(guess)
+    @breaker.analyze_hits(guess, hits)
     @end_game = victory?(hits) || out_of_tries?
   end
 

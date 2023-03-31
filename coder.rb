@@ -7,11 +7,12 @@ class Coder
     @code = provide_code
   end
 
-  def check_guess!(guess)
+  def check_guess(guess)
     unbroken_code = @code.clone
+    guess_copy = guess.clone
     hits = []
-    hits.push(calculate_precise_hits!(guess, unbroken_code))
-    hits.push(calculate_out_of_order!(guess, unbroken_code))
+    hits.push(calculate_precise_hits!(guess_copy, unbroken_code))
+    hits.push(calculate_out_of_order!(guess_copy, unbroken_code))
     puts "\n#{hits.first} numbers on the right position."
     puts "#{hits.last} numbers out of order. \n\n"
     hits
