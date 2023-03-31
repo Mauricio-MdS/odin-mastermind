@@ -12,6 +12,6 @@ class ArtificialIntelligence
   def provide_guess
     guess = provide_code
     puts "Computer tries #{guess.join('')}"
-    provide_code
+    guess
   end
 end

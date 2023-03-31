@@ -49,8 +49,6 @@ class Coder
   end
 
   def provide_code
-    code = @brain.provide_code
-    p code
-    code
+    @brain.provide_code
   end
 end
