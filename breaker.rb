@@ -2,6 +2,11 @@
 
 # Breaker moves
 class Breaker
-  def initialize(option)
+  def initialize(brain)
+    @brain = brain
+  end
+
+  def provide_guess
+    @brain.provide_guess
   end
 end
